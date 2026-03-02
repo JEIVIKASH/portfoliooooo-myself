@@ -519,3 +519,355 @@ a, button { cursor: pointer; }
   transition: color 0.3s;
 }
 .footer-link:hover { color: var(--cyber-primary); }
+
+/* ============================================================
+   THEME SYSTEM — data-theme on <html> swaps all CSS variables
+   No layout, no structure, no component changes needed.
+   ============================================================ */
+
+/* ── THEME 1: CYBER NEON (default) ── */
+[data-theme='cyber'],
+:root {
+  /* Palette */
+  --cyber-primary:   #00f3ff;
+  --cyber-secondary: #bc13fe;
+  --cyber-accent:    #ffe600;
+  --cyber-gold:      #ffd700;
+  --cyber-success:   #00ff41;
+  /* Surfaces */
+  --bg-body:         #050505;
+  --bg-dark:         #0a0b14;
+  --bg-light:        #121420;
+  --bg-card:         rgba(18, 20, 32, 0.85);
+  --bg-glass:        rgba(18, 20, 32, 0.60);
+  /* Grid */
+  --grid-color-1:    rgba(0, 243, 255, 0.03);
+  --grid-color-2:    rgba(0, 243, 255, 0.03);
+  --grid-orb-1:      rgba(188, 19, 254, 0.04);
+  --grid-orb-2:      rgba(0, 243, 255, 0.05);
+  /* Orbs */
+  --orb-1-color:     rgba(0, 243, 255, 0.12);
+  --orb-2-color:     rgba(188, 19, 254, 0.10);
+  --orb-3-color:     rgba(255, 215, 0, 0.07);
+  /* Particles */
+  --particle-1:      #00f3ff;
+  --particle-2:      #bc13fe;
+  --particle-3:      #ffd700;
+  --particle-4:      #00ff41;
+  /* Glows */
+  --glow-primary:    0 0 20px rgba(0,243,255,0.6),  0 0 40px rgba(0,243,255,0.3);
+  --glow-secondary:  0 0 20px rgba(188,19,254,0.6), 0 0 40px rgba(188,19,254,0.3);
+  --glow-gold:       0 0 20px rgba(255,215,0,0.6),  0 0 40px rgba(255,215,0,0.3);
+  /* Card borders */
+  --border-card:     rgba(0, 243, 255, 0.25);
+  --border-card-h:   rgba(0, 243, 255, 0.70);
+  /* Gradient text */
+  --grad-text-start: #00f3ff;
+  --grad-text-mid:   #ffd700;
+  --grad-text-end:   #bc13fe;
+  /* Scrollbar */
+  --scrollbar-from:  #00f3ff;
+  --scrollbar-to:    #bc13fe;
+  /* Transition */
+  --theme-transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ── THEME 2: DARK MINIMAL ── */
+[data-theme='minimal'] {
+  --cyber-primary:   #e2e8f0;
+  --cyber-secondary: #94a3b8;
+  --cyber-accent:    #f1f5f9;
+  --cyber-gold:      #cbd5e1;
+  --cyber-success:   #e2e8f0;
+  --bg-body:         #000000;
+  --bg-dark:         #0a0a0a;
+  --bg-light:        #111111;
+  --bg-card:         rgba(15, 15, 15, 0.90);
+  --bg-glass:        rgba(12, 12, 12, 0.70);
+  --grid-color-1:    rgba(255, 255, 255, 0.015);
+  --grid-color-2:    rgba(255, 255, 255, 0.015);
+  --grid-orb-1:      rgba(255, 255, 255, 0.02);
+  --grid-orb-2:      rgba(200, 200, 200, 0.02);
+  --orb-1-color:     rgba(255, 255, 255, 0.04);
+  --orb-2-color:     rgba(180, 180, 180, 0.03);
+  --orb-3-color:     rgba(140, 140, 140, 0.025);
+  --particle-1:      #e2e8f0;
+  --particle-2:      #94a3b8;
+  --particle-3:      #64748b;
+  --particle-4:      #cbd5e1;
+  --glow-primary:    0 0 15px rgba(226,232,240,0.3), 0 0 30px rgba(226,232,240,0.12);
+  --glow-secondary:  0 0 15px rgba(148,163,184,0.3), 0 0 30px rgba(148,163,184,0.12);
+  --glow-gold:       0 0 15px rgba(203,213,225,0.3), 0 0 30px rgba(203,213,225,0.12);
+  --border-card:     rgba(255, 255, 255, 0.08);
+  --border-card-h:   rgba(255, 255, 255, 0.20);
+  --grad-text-start: #e2e8f0;
+  --grad-text-mid:   #94a3b8;
+  --grad-text-end:   #64748b;
+  --scrollbar-from:  #475569;
+  --scrollbar-to:    #1e293b;
+}
+
+/* ── THEME 3: MATRIX GREEN ── */
+[data-theme='matrix'] {
+  --cyber-primary:   #00ff41;
+  --cyber-secondary: #00cc33;
+  --cyber-accent:    #39ff14;
+  --cyber-gold:      #7fff00;
+  --cyber-success:   #00ff41;
+  --bg-body:         #000500;
+  --bg-dark:         #000a02;
+  --bg-light:        #001005;
+  --bg-card:         rgba(0, 12, 3, 0.88);
+  --bg-glass:        rgba(0, 10, 2, 0.65);
+  --grid-color-1:    rgba(0, 255, 65, 0.04);
+  --grid-color-2:    rgba(0, 255, 65, 0.04);
+  --grid-orb-1:      rgba(0, 200, 50, 0.05);
+  --grid-orb-2:      rgba(0, 255, 65, 0.04);
+  --orb-1-color:     rgba(0, 255, 65, 0.14);
+  --orb-2-color:     rgba(0, 180, 40, 0.10);
+  --orb-3-color:     rgba(57, 255, 20, 0.08);
+  --particle-1:      #00ff41;
+  --particle-2:      #39ff14;
+  --particle-3:      #00cc33;
+  --particle-4:      #7fff00;
+  --glow-primary:    0 0 20px rgba(0,255,65,0.65),  0 0 40px rgba(0,255,65,0.30);
+  --glow-secondary:  0 0 20px rgba(0,204,51,0.60),  0 0 40px rgba(0,204,51,0.25);
+  --glow-gold:       0 0 20px rgba(127,255,0,0.55), 0 0 40px rgba(127,255,0,0.20);
+  --border-card:     rgba(0, 255, 65, 0.22);
+  --border-card-h:   rgba(0, 255, 65, 0.65);
+  --grad-text-start: #00ff41;
+  --grad-text-mid:   #39ff14;
+  --grad-text-end:   #00cc33;
+  --scrollbar-from:  #00ff41;
+  --scrollbar-to:    #003a10;
+}
+
+/* ── THEME 4: PURPLE NEBULA ── */
+[data-theme='nebula'] {
+  --cyber-primary:   #bc13fe;
+  --cyber-secondary: #7928ca;
+  --cyber-accent:    #e040fb;
+  --cyber-gold:      #ff6fff;
+  --cyber-success:   #da77ff;
+  --bg-body:         #04000a;
+  --bg-dark:         #080012;
+  --bg-light:        #0f0020;
+  --bg-card:         rgba(15, 0, 35, 0.88);
+  --bg-glass:        rgba(12, 0, 28, 0.65);
+  --grid-color-1:    rgba(188, 19, 254, 0.04);
+  --grid-color-2:    rgba(188, 19, 254, 0.04);
+  --grid-orb-1:      rgba(121, 40, 202, 0.07);
+  --grid-orb-2:      rgba(188, 19, 254, 0.06);
+  --orb-1-color:     rgba(188, 19, 254, 0.16);
+  --orb-2-color:     rgba(121, 40, 202, 0.13);
+  --orb-3-color:     rgba(224, 64, 251, 0.09);
+  --particle-1:      #bc13fe;
+  --particle-2:      #e040fb;
+  --particle-3:      #7928ca;
+  --particle-4:      #ff6fff;
+  --glow-primary:    0 0 20px rgba(188,19,254,0.65),  0 0 40px rgba(188,19,254,0.30);
+  --glow-secondary:  0 0 20px rgba(121,40,202,0.60),  0 0 40px rgba(121,40,202,0.25);
+  --glow-gold:       0 0 20px rgba(255,111,255,0.55), 0 0 40px rgba(255,111,255,0.20);
+  --border-card:     rgba(188, 19, 254, 0.22);
+  --border-card-h:   rgba(188, 19, 254, 0.65);
+  --grad-text-start: #bc13fe;
+  --grad-text-mid:   #e040fb;
+  --grad-text-end:   #ff6fff;
+  --scrollbar-from:  #bc13fe;
+  --scrollbar-to:    #3b0075;
+}
+
+/* ============================================================
+   APPLY CSS VARIABLES TO EXISTING STRUCTURAL CLASSES
+   These overrides make every themed rule react to data-theme.
+   ============================================================ */
+
+/* Body background */
+[data-theme] body {
+  background-color: var(--bg-body);
+  transition: background-color 0.5s ease;
+}
+
+/* Cyber grid uses theme vars */
+[data-theme] .cyber-grid {
+  background-image:
+    linear-gradient(var(--grid-color-1) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color-2) 1px, transparent 1px),
+    radial-gradient(ellipse at 20% 50%, var(--grid-orb-1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, var(--grid-orb-2) 0%, transparent 40%);
+  transition: background-image 0.5s ease;
+}
+
+/* Orbs use theme vars */
+[data-theme] .orb-1 {
+  background: radial-gradient(circle, var(--orb-1-color), transparent);
+}
+[data-theme] .orb-2 {
+  background: radial-gradient(circle, var(--orb-2-color), transparent);
+}
+[data-theme] .orb-3 {
+  background: radial-gradient(circle, var(--orb-3-color), transparent);
+}
+
+/* HUD card border uses theme */
+[data-theme] .hud-card {
+  background: var(--bg-card);
+  border-color: var(--border-card);
+}
+[data-theme] .hud-card:hover {
+  border-color: var(--border-card-h);
+  box-shadow: 0 0 30px var(--border-card), 0 20px 60px rgba(0,0,0,0.5);
+}
+[data-theme] .hud-card::before {
+  border-top-color:  var(--cyber-primary);
+  border-left-color: var(--cyber-primary);
+}
+[data-theme] .hud-card::after {
+  border-bottom-color: var(--cyber-primary);
+  border-right-color:  var(--cyber-primary);
+}
+
+/* Glass panel */
+[data-theme] .glass-panel {
+  background: var(--bg-glass);
+}
+
+/* Gradient text */
+[data-theme] .gradient-text {
+  background: linear-gradient(135deg, var(--grad-text-start), var(--grad-text-mid), var(--grad-text-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Scrollbar */
+[data-theme] ::-webkit-scrollbar-track { background: var(--bg-body); }
+[data-theme] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--scrollbar-from), var(--scrollbar-to));
+}
+
+/* Stat counter */
+[data-theme] .stat-counter {
+  background: linear-gradient(135deg, var(--cyber-primary), var(--cyber-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Progress bar fill */
+[data-theme] .progress-bar-fill {
+  background: linear-gradient(90deg, var(--cyber-primary), var(--cyber-secondary));
+}
+[data-theme] .progress-bar-fill::after {
+  box-shadow: 0 0 8px var(--cyber-primary);
+}
+
+/* Gold line */
+[data-theme] .gold-line {
+  background: linear-gradient(90deg, transparent, var(--cyber-gold), var(--cyber-primary), transparent);
+}
+
+/* Tech tags */
+[data-theme] .tech-tag {
+  border-color: rgba(var(--cyber-primary), 0.3);
+  color: var(--cyber-primary);
+  background: color-mix(in srgb, var(--cyber-primary) 5%, transparent);
+}
+
+/* Luxury divider lines */
+[data-theme] .luxury-divider::before {
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--cyber-primary) 30%, transparent));
+}
+[data-theme] .luxury-divider::after {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--cyber-primary) 30%, transparent), transparent);
+}
+
+/* Section title underline */
+[data-theme] .section-title::after {
+  background: linear-gradient(90deg, var(--cyber-primary), var(--cyber-secondary), transparent);
+}
+
+/* Ring pulse */
+[data-theme] .ring-pulse {
+  animation: ring-pulse-themed 3s ease-in-out infinite;
+}
+@keyframes ring-pulse-themed {
+  0%,100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--cyber-primary) 40%, transparent); }
+  50%      { box-shadow: 0 0 0 20px color-mix(in srgb, var(--cyber-primary) 0%, transparent); }
+}
+
+/* Neon button */
+[data-theme] .neon-btn {
+  color: var(--cyber-primary);
+  border-color: var(--cyber-primary);
+}
+[data-theme] .neon-btn:hover {
+  color: var(--bg-body);
+  background: var(--cyber-primary);
+  box-shadow: var(--glow-primary);
+}
+
+/* Nav link */
+[data-theme] .nav-link:hover { color: var(--cyber-primary); }
+[data-theme] .nav-link::after {
+  background: var(--cyber-primary);
+  box-shadow: 0 0 8px var(--cyber-primary);
+}
+
+/* Luxury badge */
+[data-theme] .luxury-badge {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--cyber-primary) 10%, transparent),
+    color-mix(in srgb, var(--cyber-secondary) 10%, transparent)
+  );
+  border-color: color-mix(in srgb, var(--cyber-primary) 30%, transparent);
+  color: var(--cyber-primary);
+}
+
+/* Luxury input focus */
+[data-theme] .luxury-input:focus {
+  border-color: var(--cyber-primary);
+  box-shadow: 0 0 15px color-mix(in srgb, var(--cyber-primary) 15%, transparent);
+}
+
+/* Footer link hover */
+[data-theme] .footer-link:hover { color: var(--cyber-primary); }
+
+/* Social icon */
+[data-theme] .social-icon {
+  border-color: color-mix(in srgb, var(--cyber-primary) 30%, transparent);
+  color: color-mix(in srgb, var(--cyber-primary) 70%, transparent);
+}
+[data-theme] .social-icon:hover {
+  background: var(--cyber-primary);
+  border-color: var(--cyber-primary);
+  color: var(--bg-body);
+  box-shadow: var(--glow-primary);
+}
+
+/* Minimal theme: turn off scanlines slightly, remove harsh glow */
+[data-theme='minimal'] .scanlines { opacity: 0.08 !important; }
+[data-theme='minimal'] .glitch::before,
+[data-theme='minimal'] .glitch::after { display: none; }
+
+/* Matrix theme: stronger scanlines for CRT feel */
+[data-theme='matrix'] .scanlines { opacity: 0.35 !important; }
+
+/* Nebula theme: soften scanlines */
+[data-theme='nebula'] .scanlines { opacity: 0.15 !important; }
+
+/* Global smooth theme transition on all elements */
+*, *::before, *::after {
+  transition:
+    background-color 0.45s ease,
+    border-color     0.45s ease,
+    box-shadow       0.45s ease,
+    color            0.35s ease;
+}
+/* But don't slow down animations or transforms */
+.particle, .orb, .scanlines,
+[class*='animate-'], .hud-card,
+.neon-btn, .nav-link, .social-icon {
+  transition: var(--theme-transition), transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+
