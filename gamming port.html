@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEIVIKASH N | PLAYER PROFILE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0b14',
+                            light: '#121420',
+                            primary: '#00f3ff', // Cyan
+                            secondary: '#bc13fe', // Neon Purple
+                            accent: '#ffe600', // Cyber Yellow
+                            success: '#00ff41',
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+
+        /* Cyber Grid Background */
+        .cyber-grid {
+            background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00fff9;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(13px, 9999px, 81px, 0); }
+            5% { clip: rect(98px, 9999px, 5px, 0); }
+            10% { clip: rect(43px, 9999px, 78px, 0); }
+            15% { clip: rect(15px, 9999px, 13px, 0); }
+            20% { clip: rect(65px, 9999px, 25px, 0); }
+            100% { clip: rect(89px, 9999px, 98px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 98px, 0); }
+            15% { clip: rect(8px, 9999px, 5px, 0); }
+            30% { clip: rect(54px, 9999px, 13px, 0); }
+            45% { clip: rect(32px, 9999px, 45px, 0); }
+            100% { clip: rect(12px, 9999px, 76px, 0); }
+        }
+
+        /* HUD Card Styling */
+        .hud-card {
+            background: rgba(18, 20, 32, 0.8);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            position: relative;
+            clip-path: polygon(
+                20px 0, 100% 0, 
+                100% calc(100% - 20px), 
+                calc(100% - 20px) 100%, 
+                0 100%, 
+                0 20px
+            );
+            transition: all 0.3s ease;
+        }
+        .hud-card:hover {
+            border-color: #00f3ff;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        .hud-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-top: 2px solid #00f3ff;
+            border-left: 2px solid #00f3ff;
+        }
+        .hud-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-bottom: 2px solid #00f3ff;
+            border-right: 2px solid #00f3ff;
+        }
+
+        /* Neon Button */
+        .neon-btn {
+            background: transparent;
+            color: #00f3ff;
+            border: 1px solid #00f3ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+        .neon-btn:hover {
+            background: #00f3ff;
+            color: #000;
+            box-shadow: 0 0 20px #00f3ff;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0b14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bc13fe;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f3ff;
+        }
+
+        .typing-cursor::after {
+            content: '█';
+            animation: blink 1s infinite;
+            color: #00f3ff;
+            margin-left: 5px;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Skill Bar Animation */
+        .skill-fill {
+            position: relative;
+            overflow: hidden;
+        }
+        .skill-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: translateX(-100%);
+            animation: shine 2s infinite;
+        }
+        @keyframes shine {
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body class="font-rajdhani text-lg">
+    
+    <div class="scanlines"></div>
+    <div class="cyber-grid"></div>
+
+    <nav class="fixed top-0 w-full bg-cyber-dark/90 backdrop-blur-md z-50 border-b border-cyber-primary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold font-orbitron tracking-widest text-cyber-primary glitch" data-text="JEIVIKASH N">
+                    JEIVIKASH N
+                </div>
+                <div class="hidden md:flex space-x-8 font-mono text-sm">
+                    <a href="#home" class="text-gray-400 hover:text-cyber-primary hover:shadow-[0_0_10px_#00f3ff] transition-all px-2 py-1">[ HOME ]</a>
+                    <a href="#about" class="text-gray-400 hover:text-cyber-secondary hover:shadow-[0_0_10px_#bc13fe] transition-all px-2 py-1">[ ABOUT ]</a>
+                    <a href="#projects" class="text-gray-400 hover:text-cyber-accent hover:shadow-[0_0_10px_#ffe600] transition-all px-2 py-1">[ PROJECTS ]</a>
+                    <a href="#skills" class="text-gray-400 hover:text-cyber-success hover:shadow-[0_0_10px_#00ff41] transition-all px-2 py-1">[ SKILLS ]</a>
+                    <a href="#experience" class="text-gray-400 hover:text-cyber-primary hover:shadow-[0_0_10px_#00f3ff] transition-all px-2 py-1">[ EXPERIENCE ]</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white hover:shadow-[0_0_10px_#ffffff] transition-all px-2 py-1">[ CONTACT ]</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="absolute top-1/4 left-10 w-32 h-32 border border-cyber-primary/20 rounded-full animate-spin-slow border-dashed"></div>
+        <div class="absolute bottom-1/4 right-10 w-48 h-48 border border-cyber-secondary/20 rounded-full animate-spin-slow border-dotted" style="animation-direction: reverse;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                
+                <div class="order-2 md:order-1">
+                    <div class="inline-block px-2 py-1 mb-4 border border-cyber-primary/50 text-cyber-primary font-mono text-xs tracking-widest bg-cyber-primary/10">
+                        SYSTEM ONLINE // WELCOME USER
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 font-orbitron text-white leading-tight">
+                        HI, I'M <br>
+                        <span class="text-cyber-secondary glitch" data-text="JEIVIKASH N">JEIVIKASH N</span>
+                    </h1>
+
+                    <p class="text-xl md:text-2xl mb-4 font-mono text-cyber-primary">
+                        <span class="typing-animation">Data Analyst || Digital Marketing Analyst</span>
+                    </p>
+
+                    <p class="text-gray-400 text-lg mb-8 max-w-lg border-l-2 border-cyber-primary pl-4">
+                        I craft beautiful, functional web experiences that solve real-world
+                        problems and delight users.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#projects" class="neon-btn px-8 py-3 text-center font-bold font-orbitron">
+                            VIEW MY WORK
+                        </a>
+                        <a href="#contact" class="px-8 py-3 text-center font-bold font-orbitron text-white border border-white/30 hover:bg-white/10 transition-all clip-path-polygon">
+                            HIRE ME
+                        </a>
+                    </div>
+                </div>
+
+                <div class="order-1 md:order-2 flex justify-center relative">
+                    <div class="relative w-80 h-80">
+                        <div class="absolute inset-0 border-2 border-cyber-primary/30 rounded-full animate-spin-slow w-full h-full"></div>
+                        <div class="absolute inset-4 border-2 border-cyber-secondary/30 rounded-full animate-spin-slow w-[calc(100%-2rem)] h-[calc(100%-2rem)]" style="animation-direction: reverse;"></div>
+                        
+                        <div class="absolute inset-8 rounded-full overflow-hidden border-4 border-cyber-primary shadow-[0_0_30px_#00f3ff]">
+                             <img src="c:\Users\ASUS\Desktop\first project\vikash.png" 
+                                 alt="Jeivikash Avatar"
+                                 class="w-full h-full object-cover bg-cyber-light">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-2 font-orbitron text-white"><span class="text-cyber-primary">/</span> ABOUT ME</h2>
+                <div class="h-1 w-20 bg-cyber-secondary mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="hud-card p-8">
+                    <h3 class="text-2xl font-bold mb-6 text-cyber-primary font-orbitron">BIOGRAPHY DATA</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed font-mono text-sm">
+                        > LOADING PROFILE...<br>
+                        > Dedicated and resourceful B.Tech AI&DS student at FX Engineering College.<br>
+                        > STATUS: Strong ability to handle pressure situations effectively.<br>
+                        > TRAITS: Quick and smart learner. Keen interest in technology, problem-solving, and innovation.<br>
+                        > MISSION: Passionate about applying technical knowledge to real-world challenges.
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        When I'm not coding, you'll find me exploring new technologies, contributing to open source projects, or mentoring aspiring developers in my community.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="border border-cyber-primary text-cyber-primary px-3 py-1 text-sm font-mono tracking-wider">[ ADAPTABILITY ]</span>
+                        <span class="border border-cyber-success text-cyber-success px-3 py-1 text-sm font-mono tracking-wider">[ TEAM_PLAYER ]</span>
+                        <span class="border border-cyber-secondary text-cyber-secondary px-3 py-1 text-sm font-mono tracking-wider">[ EMOTIONAL INTELLIGENCE ]</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-cyber-light border border-cyber-dark p-6 flex items-center shadow-lg hover:border-cyber-primary transition-colors">
+                        <i class="fas fa-map-marker-alt text-cyber-secondary text-3xl"></i>
+                        <div class="ml-4">
+                            <h4 class="text-xs font-mono text-gray-500">LOCATION</h4>
+                            <span class="text-xl font-bold text-white">TIRUNELVELI</span>
+                        </div>
+                    </div>
+                    <div class="bg-cyber-light border border-cyber-dark p-6 flex items-center shadow-lg hover:border-cyber-primary transition-colors">
+                        <i class="fas fa-microchip text-cyber-primary text-3xl"></i>
+                        <div class="ml-4">
+                            <h4 class="text-xs font-mono text-gray-500">CLASS</h4>
+                            <span class="text-xl font-bold text-white">ARTIFICIAL INTELLIGENCE AND DATA SCIENCE & DATA SCIENCE</span>
+                        </div>
+                    </div>
+                    <div class="bg-cyber-light border border-cyber-dark p-6 flex items-center shadow-lg hover:border-cyber-primary transition-colors">
+                        <i class="fas fa-gamepad text-cyber-accent text-3xl"></i>
+                        <div class="ml-4">
+                            <h4 class="text-xs font-mono text-gray-500">LEVEL</h4>
+                            <span class="text-xl font-bold text-white">FRESHER</span>
+                        </div>
+                    </div>
+                    <div class="bg-cyber-light border border-cyber-dark p-6 flex items-center shadow-lg hover:border-cyber-primary transition-colors">
+                        <i class="fas fa-code text-cyber-success text-3xl"></i>
+                        <div class="ml-4">
+                            <h4 class="text-xs font-mono text-gray-500">ACHIEVEMENTS</h4>
+                            <span class="text-xl font-bold text-white">4 PROJECTS COMPLETED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 bg-cyber-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-2 font-orbitron text-white"><span class="text-cyber-accent">/</span> COMPLETED MISSIONS</h2>
+                <p class="font-mono text-cyber-primary">Some of my recent work</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="hud-card group">
+                    <div class="h-48 bg-gray-900 border-b border-cyber-primary/30 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-cyber-primary/10 group-hover:bg-cyber-primary/20 transition-all"></div>
+                        <i class="fas fa-user-secret text-cyber-primary text-5xl group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-white font-orbitron">Ethical SoMA Using Pyphisher</h3>
+                        <p class="text-gray-400 mb-4 text-sm font-mono">Simulated phishing attacks on social media platforms in a controlled lab. Created fake login pages for awareness training. Analyzed response behavior.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">Nmap</span>
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">Python</span>
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">ZAB</span>
+                        </div>
+                        <div class="flex gap-4 pt-4 border-t border-gray-800">
+                            <a href="#" class="text-cyber-primary hover:text-white text-sm font-bold uppercase tracking-wider"><i class="fas fa-play mr-1"></i> DEMO</a>
+                            <a href="#" class="text-cyber-secondary hover:text-white text-sm font-bold uppercase tracking-wider"><i class="fab fa-github mr-1"></i> CODE</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hud-card group">
+                    <div class="h-48 bg-gray-900 border-b border-cyber-primary/30 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-cyber-secondary/10 group-hover:bg-cyber-secondary/20 transition-all"></div>
+                        <i class="fas fa-file-contract text-cyber-secondary text-5xl group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-white font-orbitron">AI Resume Screener</h3>
+                        <p class="text-gray-400 mb-4 text-sm font-mono">Designed AI system to rank resumes using NLP. Extracted key details like skills and education. Matched resumes to job descriptions efficiently.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">NLP</span>
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">TensorFlow</span>
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">spaCy</span>
+                        </div>
+                        <div class="flex gap-4 pt-4 border-t border-gray-800">
+                            <a href="#" class="text-cyber-primary hover:text-white text-sm font-bold uppercase tracking-wider"><i class="fas fa-play mr-1"></i> DEMO</a>
+                            <a href="#" class="text-cyber-secondary hover:text-white text-sm font-bold uppercase tracking-wider"><i class="fab fa-github mr-1"></i> CODE</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hud-card group">
+                    <div class="h-48 bg-gray-900 border-b border-cyber-primary/30 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-cyber-accent/10 group-hover:bg-cyber-accent/20 transition-all"></div>
+                        <i class="fas fa-hand-sparkles text-cyber-accent text-5xl group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-white font-orbitron">Aerial Artboard</h3>
+                        <p class="text-gray-400 mb-4 text-sm font-mono">Uses OpenCV to let users draw in the air by tracking a colored object or hand gestures via camera. Computer Vision application.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">OpenCV</span>
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">NumPy</span>
+                            <span class="text-xs border border-gray-600 px-2 py-1 text-gray-300">Pandas</span>
+                        </div>
+                        <div class="flex gap-4 pt-4 border-t border-gray-800">
+                            <a href="#" class="text-cyber-primary hover:text-white text-sm font-bold uppercase tracking-wider"><i class="fas fa-play mr-1"></i> DEMO</a>
+                            <a href="#" class="text-cyber-secondary hover:text-white text-sm font-bold uppercase tracking-wider"><i class="fab fa-github mr-1"></i> CODE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-2 font-orbitron text-white"><span class="text-cyber-success">/</span> SKILL AND TECHNOLOGIES</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-cyber-light border-t-2 border-cyber-primary p-6 shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center mb-6 border-b border-gray-800 pb-2">
+                        <i class="fas fa-laptop-code text-2xl text-cyber-primary mr-3"></i>
+                        <h3 class="text-xl font-bold font-orbitron text-white">FRONTEND</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-primary">
+                                <span>HTML</span> <span>95%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-primary skill-fill" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-primary">
+                                <span>CSS</span> <span>90%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-primary skill-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-primary">
+                                <span>JAVASCRIPT</span> <span>92%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-primary skill-fill" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cyber-light border-t-2 border-cyber-secondary p-6 shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center mb-6 border-b border-gray-800 pb-2">
+                        <i class="fas fa-server text-2xl text-cyber-secondary mr-3"></i>
+                        <h3 class="text-xl font-bold font-orbitron text-white">BACKEND</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-secondary">
+                                <span>PYTHON</span> <span>88%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-secondary skill-fill" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-secondary">
+                                <span>JAVA</span> <span>85%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-secondary skill-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-secondary">
+                                <span>NODE.JS</span> <span>80%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-secondary skill-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cyber-light border-t-2 border-cyber-accent p-6 shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center mb-6 border-b border-gray-800 pb-2">
+                        <i class="fas fa-database text-2xl text-cyber-accent mr-3"></i>
+                        <h3 class="text-xl font-bold font-orbitron text-white">DATABASE</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-accent">
+                                <span>POSTGRESQL</span> <span>87%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-accent skill-fill" style="width: 87%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-accent">
+                                <span>MONGODB</span> <span>83%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-accent skill-fill" style="width: 83%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-accent">
+                                <span>REDIS</span> <span>75%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-accent skill-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cyber-light border-t-2 border-cyber-success p-6 shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+                    <div class="flex items-center mb-6 border-b border-gray-800 pb-2">
+                        <i class="fas fa-tools text-2xl text-cyber-success mr-3"></i>
+                        <h3 class="text-xl font-bold font-orbitron text-white">TOOLS</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-success">
+                                <span>AWS</span> <span>82%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-success skill-fill" style="width: 82%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-success">
+                                <span>DOCKER</span> <span>78%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-success skill-fill" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between mb-1 text-xs font-mono text-gray-400 group-hover:text-cyber-success">
+                                <span>GIT</span> <span>93%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800">
+                                <div class="h-full bg-cyber-success skill-fill" style="width: 93%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Experience Section -->
+    <section id="experience" class="py-20 bg-cyber-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-2 font-orbitron text-white"><span class="text-cyber-secondary">/</span> Experience & Education</h2>
+            </div>
+<!-- Experience Timeline -->
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-8 text-white font-orbitron border-l-4 border-cyber-primary pl-4">WORK EXPERIENCE</h3>
+                    <div class="space-y-8 border-l border-gray-800 ml-2 pl-8 relative">
+                        <div class="relative group">
+                            <div class="absolute -left-[39px] top-0 w-5 h-5 bg-black border-2 border-cyber-primary rounded-full group-hover:bg-cyber-primary transition-colors"></div>
+                            <div class="bg-cyber-light p-6 border border-gray-800 hover:border-cyber-primary transition-all">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-bold text-white">AI & MACHINE LEARNING</h4>
+                                    <span class="text-xs font-mono text-cyber-primary border border-cyber-primary/30 px-2 py-1">12/2024</span>
+                                </div>
+                                <p class="text-cyber-secondary text-sm font-bold mb-2">Iconic Software Solutions</p>
+                                <p class="text-gray-400 text-sm">Focused on Anaconda Python and advanced ML techniques for practical applications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- Education Timeline -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-8 text-white font-orbitron border-l-4 border-cyber-success pl-4">EDUCATION & CERTIFICATIONS</h3>
+                    <div class="space-y-8 border-l border-gray-800 ml-2 pl-8 relative">
+                        <div class="relative group">
+                            <div class="absolute -left-[39px] top-0 w-5 h-5 bg-black border-2 border-cyber-success rounded-full group-hover:bg-cyber-success transition-colors"></div>
+                            <div class="bg-cyber-light p-6 border border-gray-800 hover:border-cyber-success transition-all">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-bold text-white">NPTEL: INDUSTRY 4.0</h4>
+                                    <span class="text-xs font-mono text-cyber-success border border-cyber-success/30 px-2 py-1">2025</span>
+                                </div>
+                                <p class="text-gray-500 text-xs mb-2">Funded by MoE, Govt. of India</p>
+                                <p class="text-gray-400 text-sm">ELITE + SILVER (82%) Introduction To Industry 4.0 And IoT.</p>
+                            </div>
+                        </div>
+                        <div class="relative group">
+                            <div class="absolute -left-[39px] top-0 w-5 h-5 bg-black border-2 border-cyber-success rounded-full group-hover:bg-cyber-success transition-colors"></div>
+                            <div class="bg-cyber-light p-6 border border-gray-800 hover:border-cyber-success transition-all">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-bold text-white">NPTEL: PYTHON</h4>
+                                    <span class="text-xs font-mono text-cyber-success border border-cyber-success/30 px-2 py-1">2024</span>
+                                </div>
+                                <p class="text-gray-500 text-xs mb-2">Funded by MoE, Govt. of India</p>
+                                <p class="text-gray-400 text-sm">Successfully completed The Joy of Computing using Python.</p>
+                            </div>
+                        </div>
+                        <div class="relative group">
+                            <div class="absolute -left-[39px] top-0 w-5 h-5 bg-black border-2 border-cyber-success rounded-full group-hover:bg-cyber-success transition-colors"></div>
+                            <div class="bg-cyber-light p-6 border border-gray-800 hover:border-cyber-success transition-all">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-bold text-white">Industrial Visit</h4>
+                                    <span class="text-xs font-mono text-cyber-success border border-cyber-success/30 px-2 py-1">2024</span>
+                                </div>
+                                <p class="text-gray-500 text-xs mb-2">Srishti</p>
+                                <p class="text-gray-400 text-sm">I Attended One Day Industrial Visit at Srishti Innovative Educational service.</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-2 font-orbitron text-white"><span class="text-cyber-primary">/</span> What People Say </h2>
+                <p class="font-mono text-gray-500">Testimonials from colleagues and clients</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-cyber-light border border-gray-800 p-6 relative">
+                    <div class="absolute -top-3 left-6 bg-cyber-dark px-2 text-cyber-primary font-mono text-xs border border-cyber-primary">MENTOR</div>
+                    <div class="flex items-center mb-4 mt-2">
+                        <div class="w-10 h-10 bg-cyber-secondary rounded-none flex items-center justify-center text-black font-bold mr-3 clip-path-polygon">JB</div>
+                        <div>
+                            <h4 class="font-bold text-white">G.Brintha</h4>
+                            <p class="text-xs text-gray-500">Asst. Professor</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic text-sm">"Jeivikash is an exceptional developer who consistently delivers high-quality code. His attention to detail and problem-solving skills are outstanding."</p>
+                </div>
+                <div class="bg-cyber-light border border-gray-800 p-6 relative">
+                     <div class="absolute -top-3 left-6 bg-cyber-dark px-2 text-cyber-success font-mono text-xs border border-cyber-success">PROFESSOR</div>
+                    <div class="flex items-center mb-4 mt-2">
+                        <div class="w-10 h-10 bg-cyber-success rounded-none flex items-center justify-center text-black font-bold mr-3 clip-path-polygon">RR</div>
+                        <div>
+                            <h4 class="font-bold text-white">Dr.R.Ravi</h4>
+                            <p class="text-xs text-gray-500">Professor, FXEC</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic text-sm">"Working with Jeivikash was a game-changer. He built our platform from scratch and it scaled beautifully."</p>
+                </div>
+                 <div class="bg-cyber-light border border-gray-800 p-6 relative">
+                     <div class="absolute -top-3 left-6 bg-cyber-dark px-2 text-cyber-accent font-mono text-xs border border-cyber-accent">ADMIN</div>
+                    <div class="flex items-center mb-4 mt-2">
+                        <div class="w-10 h-10 bg-cyber-accent rounded-none flex items-center justify-center text-black font-bold mr-3 clip-path-polygon">CW</div>
+                        <div>
+                            <h4 class="font-bold text-white">Clement</h4>
+                            <p class="text-xs text-gray-500">Warden, FXEC</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic text-sm">"Jeivikash has an incredible eye for design. He brings mockups to life with pixel-perfect precision."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-cyber-dark border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6 font-orbitron text-white">Let's Work Together</h2>
+                    <p class="text-gray-400 mb-8 font-mono">
+                        Ready to bring your ideas to life?
+                    </p>
+                    
+                    <div class="space-y-6 font-mono">
+                        <div class="flex items-center text-cyber-primary">
+                            <i class="fas fa-envelope w-8"></i>
+                            <span class="text-gray-300">n.jeivikash@gmail.com</span>
+                        </div>
+                        <div class="flex items-center text-cyber-secondary">
+                            <i class="fas fa-phone w-8"></i>
+                            <span class="text-gray-300">+91 9345721416</span>
+                        </div>
+                        <div class="flex items-center text-cyber-accent">
+                            <i class="fas fa-map-marker-alt w-8"></i>
+                            <span class="text-gray-300">Tirunelveli, India</span>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4 mt-10">
+                        <a href="#" class="w-12 h-12 border border-cyber-primary text-cyber-primary hover:bg-cyber-primary hover:text-black flex items-center justify-center transition-all clip-path-polygon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 border border-white text-white hover:bg-white hover:text-black flex items-center justify-center transition-all clip-path-polygon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 border border-cyber-secondary text-cyber-secondary hover:bg-cyber-secondary hover:text-black flex items-center justify-center transition-all clip-path-polygon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-cyber-light p-8 border border-gray-800 shadow-[0_0_20px_rgba(0,243,255,0.05)]">
+                    <form>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-xs font-mono text-cyber-primary mb-2">USER_ID</label>
+                                <input type="text" class="w-full bg-black border border-gray-700 text-white p-3 focus:border-cyber-primary focus:outline-none font-mono" placeholder="Name">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-cyber-primary mb-2">CONTACT_REF</label>
+                                <input type="email" class="w-full bg-black border border-gray-700 text-white p-3 focus:border-cyber-primary focus:outline-none font-mono" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-xs font-mono text-cyber-primary mb-2">SUBJECT</label>
+                            <input type="text" class="w-full bg-black border border-gray-700 text-white p-3 focus:border-cyber-primary focus:outline-none font-mono" placeholder="Project Inquiry">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-xs font-mono text-cyber-primary mb-2">DATA_PACKET</label>
+                            <textarea rows="4" class="w-full bg-black border border-gray-700 text-white p-3 focus:border-cyber-primary focus:outline-none font-mono" placeholder="Message content..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full neon-btn py-3 font-bold font-orbitron">
+                            TRANSMIT MESSAGE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black py-8 border-t border-gray-900 text-center font-mono text-sm text-gray-600">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-3xl font-extrabold tracking-tight mb-4">
+                    <span class="text-cyber-secondary glitch" data-text="JEIVIKASH N">JEIVIKASH N</span>
+                </div>
+                 <p class="text-xl md:text-2xl mb-4 font-mono text-cyber-primary">
+                        <span class="typing-animation">Data Analyst || Digital Marketing Analyst</span>
+                    </p>
+                <div class="flex justify-center space-x-6 text-sm mb-8">
+                    <a href="#home" class="hover:text-sky-400 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-sky-400 transition-colors">About</a>
+                    <a href="#projects" class="hover:text-sky-400 transition-colors">Projects</a>
+                    <a href="#skills" class="hover:text-sky-400 transition-colors">Skills</a>
+                    <a href="#experience" class="hover:text-sky-400 transition-colors">Experience</a>
+                    <a href="#contact" class="hover:text-sky-400 transition-colors">Contact</a>
+                </div>
+                <div class="border-t border-gray-800 pt-8">
+                    <p class="text-gray-500 text-sm">&copy; 2024 JEIVIKASH N. All rights reserved. <span class="text-sky-400">Code: 100% Animated.</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Typing Animation
+        const typingElement = document.querySelector('.typing-animation');
+        const textToType = "Data Analyst || Digital Marketing Analyst";
+        let typeIndex = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            const currentText = textToType;
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, typeIndex - 1);
+                typeIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, typeIndex + 1);
+                typeIndex++;
+            }
+
+            if (!isDeleting && typeIndex === currentText.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && typeIndex === 0) {
+                isDeleting = false;
+            }
+
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(typeWriter, speed);
+        }
+
+        setTimeout(typeWriter, 1000);
+
+        // Scanline Glitch Randomizer
+        setInterval(() => {
+            const scanline = document.querySelector('.scanlines');
+            scanline.style.opacity = Math.random() * 0.1 + 0.1;
+        }, 100);
+
+    </script>
+</body>
+</html>
