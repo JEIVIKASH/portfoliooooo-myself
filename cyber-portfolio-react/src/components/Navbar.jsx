@@ -101,21 +101,21 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Container */}
-          <div className="md:hidden flex items-center gap-3">
+          <div className="md:hidden flex items-center gap-2">
             {/* Mobile Theme Toggle */}
             <div className="flex items-center gap-1">
               {themeModes.map((mode) => (
                 <button
                   key={mode.id}
                   onClick={() => setThemeMode(mode.id)}
-                  className="w-7 h-7 flex items-center justify-center transition-all duration-300"
+                  className="w-6 h-6 flex items-center justify-center transition-all duration-300"
                   style={{
                     background: themeMode === mode.id ? mode.color + '20' : 'transparent',
                     border: themeMode === mode.id ? `1px solid ${mode.color}60` : '1px solid transparent'
                   }}
                   title={mode.name}
                 >
-                  <i className={`${mode.icon} text-[10px]`}
+                  <i className={`${mode.icon} text-[8px]`}
                      style={{
                        color: themeMode === mode.id ? mode.color : 'rgba(255,255,255,0.4)'
                      }}></i>
@@ -125,15 +125,15 @@ const Navbar = () => {
 
             {/* Mobile Toggle */}
             <button
-              className="border border-white/20 w-9 h-9 flex flex-col items-center justify-center gap-1 px-2"
+              className="border border-white/20 w-8 h-8 flex flex-col items-center justify-center gap-1 px-1"
               style={{borderColor: themeModes.find(m => m.id === themeMode)?.color + '40' || '#00f3ff40'}}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-              <span className={`block w-5 h-[1px] transition-all ${mobileOpen ? 'rotate-45 translate-y-[5px]' : ''}`}
+              <span className={`block w-4 h-[1px] transition-all ${mobileOpen ? 'rotate-45 translate-y-[3px]' : ''}`}
                     style={{background: themeModes.find(m => m.id === themeMode)?.color || '#00f3ff'}}></span>
-              <span className={`block w-5 h-[1px] transition-all ${mobileOpen ? 'opacity-0' : ''}`}
+              <span className={`block w-4 h-[1px] transition-all ${mobileOpen ? 'opacity-0' : ''}`}
                     style={{background: themeModes.find(m => m.id === themeMode)?.color || '#00f3ff'}}></span>
-              <span className={`block w-5 h-[1px] transition-all ${mobileOpen ? '-rotate-45 -translate-y-[5px]' : ''}`}
+              <span className={`block w-4 h-[1px] transition-all ${mobileOpen ? '-rotate-45 -translate-y-[3px]' : ''}`}
                     style={{background: themeModes.find(m => m.id === themeMode)?.color || '#00f3ff'}}></span>
             </button>
           </div>
@@ -141,13 +141,13 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="md:hidden glass-panel border-t py-4 px-4 mb-2"
+          <div className="md:hidden glass-panel border-t py-3 px-3 mb-2"
                style={{borderColor: themeModes.find(m => m.id === themeMode)?.color + '10' || '#00f3ff10'}}>
             {links.map(link => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
-                className="block py-2 nav-link text-sm"
+                className="block py-1.5 nav-link text-xs"
                 style={{color: activeSection === link.id ? themeModes.find(m => m.id === themeMode)?.color || '#00f3ff' : ''}}
                 onClick={() => setMobileOpen(false)}
               >

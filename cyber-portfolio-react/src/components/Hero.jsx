@@ -54,60 +54,61 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
 
           {/* Left Content */}
-          <div className="order-2 md:order-1 space-y-6">
+          <div className="order-2 md:order-1 space-y-4 sm:space-y-6">
 
             {/* Status Badge */}
             <div className="inline-flex items-center gap-2 luxury-badge">
               <span className="w-2 h-2 rounded-full bg-[#00ff41] inline-block animate-pulse-fast"></span>
-              SYSTEM ONLINE // AVAILABLE FOR HIRE
+              <span className="hidden sm:inline">SYSTEM ONLINE // AVAILABLE FOR HIRE</span>
+              <span className="sm:hidden">ONLINE</span>
             </div>
 
             {/* Name */}
             <div>
-              <p className="font-mono text-[#00f3ff]/60 text-sm tracking-[4px] mb-2">INITIALIZING PROFILE...</p>
-              <h1 className="text-5xl md:text-7xl font-black font-orbitron text-white leading-none tracking-tight">
+              <p className="font-mono text-[#00f3ff]/60 text-xs sm:text-sm tracking-[2px] sm:tracking-[4px] mb-2">INITIALIZING PROFILE...</p>
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-black font-orbitron text-white leading-none tracking-tight">
                 HI, I'M
               </h1>
-              <h1 className="text-5xl md:text-7xl font-black font-orbitron leading-none tracking-tight mt-1">
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-black font-orbitron leading-none tracking-tight mt-1">
                 <span className="gradient-text glitch" data-text="JEIVIKASH N">JEIVIKASH N</span>
               </h1>
             </div>
 
             {/* Role typing */}
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-[1px]" style={{background: 'linear-gradient(90deg, #00f3ff, transparent)'}}></div>
-              <p className="text-xl md:text-2xl font-mono" style={{color: '#00f3ff'}}>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-6 sm:w-8 h-[1px]" style={{background: 'linear-gradient(90deg, #00f3ff, transparent)'}}></div>
+              <p className="text-lg sm:text-xl md:text-2xl font-mono" style={{color: '#00f3ff'}}>
                 {displayText}
                 <span className="typing-cursor"></span>
               </p>
             </div>
 
             {/* Bio */}
-            <p className="text-gray-400 text-base leading-relaxed max-w-lg border-l-2 border-[#00f3ff]/40 pl-4 font-rajdhani">
+            <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-lg border-l-2 border-[#00f3ff]/40 pl-3 sm:pl-4 font-rajdhani">
               I craft beautiful, functional digital experiences that solve real-world problems.
               Passionate about AI, data analytics, and building things that matter.
             </p>
 
             {/* Stats row */}
-            <div className="flex gap-8 py-4 border-y border-white/5">
-              {[['4+', 'Projects'], ['2+', 'Years Learning'], ['10+', 'Technologies']].map(([num, label]) => (
+            <div className="flex gap-4 sm:gap-8 py-3 sm:py-4 border-y border-white/5">
+              {[['4+', 'Projects'], ['2+', 'Years'], ['10+', 'Tech']].map(([num, label]) => (
                 <div key={label}>
-                  <div className="stat-counter">{num}</div>
-                  <div className="text-gray-500 text-xs font-mono tracking-widest">{label}</div>
+                  <div className="stat-counter text-lg sm:text-2xl md:text-3xl">{num}</div>
+                  <div className="text-gray-500 text-[10px] sm:text-xs font-mono tracking-widest">{label}</div>
                 </div>
               ))}
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#projects" className="neon-btn px-8 py-3 text-center text-sm">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <a href="#projects" className="neon-btn px-6 sm:px-8 py-2.5 sm:py-3 text-center text-xs sm:text-sm">
                 VIEW MY WORK
               </a>
               <a href="#contact"
-                className="px-8 py-3 text-center font-bold font-orbitron text-sm text-white transition-all
+                className="px-6 sm:px-8 py-2.5 sm:py-3 text-center font-bold font-orbitron text-xs sm:text-sm text-white transition-all
                            border border-white/20 hover:border-white/50 hover:bg-white/5 tracking-widest
                            backdrop-blur-sm"
-                style={{clipPath:'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)'}}>
+                style={{clipPath:'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)'}}>
                 HIRE ME
               </a>
             </div>
@@ -115,19 +116,19 @@ const Hero = () => {
 
           {/* Right — Avatar */}
           <div className="order-1 md:order-2 flex justify-center relative">
-            <div className="relative w-72 h-72 md:w-80 md:h-80">
+            <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80">
               {/* Outer rings */}
-              <div className="absolute -inset-6 border border-[#00f3ff]/10 rounded-full animate-spin-slow"></div>
-              <div className="absolute -inset-12 border border-[#bc13fe]/8 rounded-full animate-spin-slow" style={{animationDirection:'reverse', animationDuration:'20s'}}></div>
-              <div className="absolute -inset-4 border-2 border-dashed border-[#00f3ff]/15 rounded-full animate-spin-slow" style={{animationDuration:'15s'}}></div>
+              <div className="absolute -inset-3 sm:-inset-6 border border-[#00f3ff]/10 rounded-full animate-spin-slow"></div>
+              <div className="absolute -inset-6 sm:-inset-12 border border-[#bc13fe]/8 rounded-full animate-spin-slow" style={{animationDirection:'reverse', animationDuration:'20s'}}></div>
+              <div className="absolute -inset-2 sm:-inset-4 border-2 border-dashed border-[#00f3ff]/15 rounded-full animate-spin-slow" style={{animationDuration:'15s'}}></div>
 
               {/* Glow backdrop */}
               <div className="absolute inset-0 rounded-full ring-pulse"
-                   style={{boxShadow: '0 0 60px rgba(0,243,255,0.2), 0 0 120px rgba(0,243,255,0.1)'}}></div>
+                   style={{boxShadow: '0 0 40px rgba(0,243,255,0.2), 0 0 80px rgba(0,243,255,0.1)'}}></div>
 
               {/* Avatar frame */}
-              <div className="absolute inset-2 rounded-full overflow-hidden border-2 border-[#00f3ff]/50"
-                   style={{boxShadow: '0 0 30px #00f3ff, inset 0 0 30px rgba(0,243,255,0.1)'}}>
+              <div className="absolute inset-1 sm:inset-2 rounded-full overflow-hidden border-2 border-[#00f3ff]/50"
+                   style={{boxShadow: '0 0 20px #00f3ff, inset 0 0 20px rgba(0,243,255,0.1)'}}>
                 <img
                   src="/vikash.png"
                   alt="Jeivikash Avatar"
@@ -137,24 +138,24 @@ const Hero = () => {
                     e.target.style.display='none';
                     e.target.parentNode.innerHTML += `
                       <div style="width:100%;height:100%;background:#121420;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-                        <span style="font-size:4rem;color:#00f3ff;font-family:Orbitron">JN</span>
-                        <span style="font-size:0.6rem;color:#00f3ff;font-family:monospace;letter-spacing:4px">AVATAR</span>
+                        <span style="font-size:2rem;color:#00f3ff;font-family:Orbitron">JN</span>
+                        <span style="font-size:0.5rem;color:#00f3ff;font-family:monospace;letter-spacing:2px">AVATAR</span>
                       </div>`;
                   }}
                 />
               </div>
 
               {/* Corner accent badges */}
-              <div className="absolute -top-2 -right-2 luxury-badge text-xs py-1 px-2">AI & DS</div>
-              <div className="absolute -bottom-2 -left-2 luxury-badge text-xs py-1 px-2" style={{borderColor:'rgba(188,19,254,0.3)',color:'#bc13fe'}}>FRESHER</div>
+              <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 luxury-badge text-[10px] sm:text-xs py-0.5 sm:py-1 px-1 sm:px-2">AI & DS</div>
+              <div className="absolute -bottom-1 -left-1 sm:-bottom-2 sm:-left-2 luxury-badge text-[10px] sm:text-xs py-0.5 sm:py-1 px-1 sm:px-2" style={{borderColor:'rgba(188,19,254,0.3)',color:'#bc13fe'}}>FRESHER</div>
 
               {/* Floating dots */}
               {[0,1,2,3,4,5,6,7].map(i => (
-                <div key={i} className="absolute w-1.5 h-1.5 rounded-full bg-[#00f3ff]"
+                <div key={i} className="absolute w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[#00f3ff]"
                      style={{
-                       top: `${50 + 52 * Math.sin(i * Math.PI / 4)}%`,
-                       left: `${50 + 52 * Math.cos(i * Math.PI / 4)}%`,
-                       boxShadow: '0 0 6px #00f3ff',
+                       top: `${50 + 35 * Math.sin(i * Math.PI / 4)}%`,
+                       left: `${50 + 35 * Math.cos(i * Math.PI / 4)}%`,
+                       boxShadow: '0 0 4px #00f3ff',
                        opacity: 0.6,
                      }}></div>
               ))}

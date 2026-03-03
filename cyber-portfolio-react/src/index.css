@@ -278,11 +278,11 @@ a, button { cursor: pointer; }
 .nav-link {
   position: relative;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
   color: rgba(255, 255, 255, 0.5);
   transition: all 0.3s;
-  padding: 4px 8px;
+  padding: 3px 6px;
 }
 .nav-link::after {
   content: '';
@@ -295,6 +295,49 @@ a, button { cursor: pointer; }
 }
 .nav-link:hover { color: var(--cyber-primary); }
 .nav-link:hover::after { width: 100%; }
+
+/* ===== MOBILE RESPONSIVE FIXES ===== */
+@media (max-width: 768px) {
+  .nav-link {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    padding: 2px 4px;
+  }
+  
+  .luxury-badge {
+    font-size: 0.55rem;
+    padding: 2px 6px;
+  }
+  
+  .cyber-heading {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+  
+  .stat-counter {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-link {
+    font-size: 0.6rem;
+    padding: 2px 3px;
+  }
+  
+  .luxury-badge {
+    font-size: 0.5rem;
+    padding: 1.5px 4px;
+  }
+  
+  .cyber-heading {
+    font-size: 1.75rem;
+  }
+  
+  .stat-counter {
+    font-size: 1.25rem;
+  }
+}
 
 /* ===== LUXURY FLOATING ORBS ===== */
 .orb {
